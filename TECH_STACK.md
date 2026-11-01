@@ -10,7 +10,7 @@
 | React renderer for three.js | **@react-three/fiber** | 9.3 | Declarative scene graph and a per-frame `useFrame` loop. |
 | 3D helpers | **@react-three/drei** | 10.7 | `Environment` + `Lightformer` (reflections without an HDR download), `PerformanceMonitor`, `AdaptiveDpr`, `BakeShadows`, `Preload`, GLTF loading. |
 | Post-processing | **@react-three/postprocessing** + **postprocessing** | 3.0 / 6.37 | N8AO ambient occlusion, bloom, neutral tone mapping, colour grade, vignette, SMAA. High tier only. |
-| Animation | **GSAP** | 3.13 | Camera flights, the scripted walk-in, intro wordmark and UI motion. |
+| Animation | **GSAP** | 3.13 | Camera flights, the scripted walk-in, the loader's pallet hand-off, intro wordmark and UI motion. |
 | State | **Zustand** (+ `persist`) | 5.0 | Cart (saved to localStorage) and UI state. The camera pose deliberately lives *outside* React. |
 | Styling | **Tailwind CSS** | 4 | HUD panels, drawers, toasts and the 2D catalogue. |
 | Font | **Inter** (variable, via Fontsource) | 5.2 | UI typography. Static WOFF files are used for canvas text on signs and till screens. |
@@ -25,7 +25,7 @@
 | **Open Food / Beauty / Products Facts API** | Resolving each catalogue item to a real product: name, brand, barcode, front packshot. |
 | **IS-Net** (`isnet-general-use`, Apache-2.0) via **onnxruntime-node** | Removing the background from packshots that aren't plain studio shots. |
 | **sharp** | Image decode/resize, flood-fill cutouts, silhouette tracing, WebP encoding, label-atlas packing. |
-| **glTF-Transform** + **meshoptimizer** | Model optimisation: dedupe, weld, simplify toward a triangle budget, meshopt compression, textures capped at 1K WebP. |
+| **glTF-Transform** + **meshoptimizer** | Model optimisation: dedupe, weld, simplify toward a triangle budget, meshopt compression, textures capped at 1K WebP (512 px on packs). |
 
 ## Tooling
 

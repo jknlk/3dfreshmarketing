@@ -18,7 +18,7 @@ This repository holds the **design documentation** only: the build prompt, the p
 - **Search** (`/` or `Ctrl K`) walks you to the shelf. The minimap and aisle chips move you around the store.
 - **Deals.** "3 for ₹99" and "Buy 2, get 1 free" are applied across mixed products.
 - **Self-checkout.** The trolley empties onto the counter, each item is scanned (beep and flash) into the bag, and a live till screen and receipt follow.
-- **Runs on laptops.** It uses instancing, frustum culling, level of detail, and quality tiers that step down automatically. A 2D list view is the fallback when WebGL2 isn't available.
+- **Runs on laptops.** It uses instancing, frustum culling, three levels of detail, and quality tiers that step down automatically. A 2D list view is the fallback when WebGL2 isn't available.
 
 ## Controls
 

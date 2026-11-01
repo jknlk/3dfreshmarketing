@@ -60,7 +60,7 @@ This is the brief used to build Fresh Market. It is written so that a developer,
 - A clean, warm, premium retail look: Inter font, generous spacing, soft shadows.
 - Top bar with the brand, aisle chips, search, a trolley count badge and a list-view toggle.
 - Minimap with the player's position and heading. Click it to travel.
-- A loader with real progress, and an intro where the wordmark flies into the top bar.
+- A loader with real progress: a 3D pallet is stocked carton by carton, stretch-wrapped and wheeled off, and the wordmark flies into the top bar. It is rendered on the server so it is the first paint.
 - Settings: quality tier, auto quality, sound, and **Credits & licences** for every CC-BY model.
 - A **2D list view** with the same cart and checkout. It is used automatically when WebGL2 is unavailable.
 
@@ -68,7 +68,7 @@ This is the brief used to build Fresh Market. It is written so that a developer,
 
 - Smooth on an **integrated laptop GPU (Intel Iris Xe)** at the default tier.
 - Draw every product with **instancing**: one draw per product part, not per facing.
-- **Frustum-cull** each facing every frame. Switch between detailed and light meshes by distance. Far-away branded models fall back to the light rebuilt pack.
+- **Frustum-cull** each facing every frame. Switch between three levels of detail by distance: the full pack up close, a light rebuilt pack in the middle distance (branded models fall back to it), and a photo card far away.
 - The camera pose lives in a mutable object outside React. **Walking must never re-render React.**
 - **Bake shadows once** (fixtures don't move). Build reflections from in-scene light panels, not an HDR download.
 - Quality tiers:
@@ -76,7 +76,7 @@ This is the brief used to build Fresh Market. It is written so that a developer,
   - **Balanced:** baked soft shadows, no post-processing. Default for integrated and mobile GPUs.
   - **Battery:** no shadows, lower device pixel ratio (DPR).
 - A performance monitor steps the tier down automatically when the frame rate drops.
-- Compress models (meshopt, ≤1K WebP textures). Put all labels in a single texture atlas.
+- Compress models (meshopt, ≤1K WebP textures, ≤512 px on packs). Put all labels in a single texture atlas.
 
 ### 8. Asset pipeline
 

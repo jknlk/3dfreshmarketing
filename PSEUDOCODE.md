@@ -19,8 +19,12 @@ ON PAGE LOAD:
         quality ← "high"
 
     unlock audio on first click or key press
-    show Loader (real asset progress)
-    WHEN loader done:
+    preload startup models + label atlas from the HTML (in parallel with the JS)
+    show Loader (server-rendered, so it is the first paint):
+        a CSS 3D pallet gets one carton per slice of real asset progress
+        the wordmark fills bottom-up in step
+    WHEN store ready AND pallet full:
+        stretch-wrap glints across the pallet, pallet is wheeled off
         play intro: wordmark flies into the top bar
         enterStore()                      // scripted walk in through the doors
 ```
@@ -162,18 +166,23 @@ FOR each product:
         // rows bottom→top; each row an ellipse between left/right silhouette edges
         // pouches pinch flat toward top and bottom seams; caps fan to centre
         // UVs project the photo onto the front from the atlas rect
-    build HIGH and LOW detail versions (LOW of a model = the lofted photo pack)
+    build three detail levels:
+        FULL  = the model or detailed loft          (within 3.5 m)
+        LIGHT = light loft (models fall back to it)  (to 13 m)
+        CARD  = flat photo card                     (beyond)
 
 matrix(placement) = translate(position) · rotateY(yawFrom(normal)) · scale(size)
 
 PER PRODUCT, EVERY FRAME:
-    near, far ← empty lists
+    full, light, card ← empty lists
     FOR each facing:
         IF bounding sphere outside camera frustum: skip
-        IF distance < LOD_DISTANCE: near.add(facing) ELSE far.add(facing)
+        IF distance < 3.5 m: full.add(facing)
+        ELSE IF distance < 13 m: light.add(facing)
+        ELSE: card.add(facing)
         IF distance < BACKSTOCK_DISTANCE: backRow.add(facing)
     IF visible sets changed: rewrite instance matrices and counts
-    draw HIGH parts × near, LOW parts × (far + backRow)
+    draw FULL parts × full, LIGHT parts × (light + backRow), CARD × card
 
 ON hover facing:   show glow shell (slightly enlarged back-face mesh)
 ON click facing:   quickAdd(facingIndex)
@@ -315,5 +324,6 @@ assets:products  (seed → generated catalogue)
 assets:models
     download listed CC-BY Sketchfab models → record credits
     optimise: dedupe, weld, simplify packs toward a triangle budget,
-              textures ≤1K WebP, meshopt compression → public/models/*.glb
+              (packs retry with looser error tolerances until within budget),
+              textures ≤1K WebP (≤512 px on packs), meshopt compression → public/models/*.glb
 ```
